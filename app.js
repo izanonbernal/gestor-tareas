@@ -2,6 +2,7 @@ function agregarTarea() {
   const input = document.getElementById("tarea");
   const lista = document.getElementById("lista");
   if (!input.value.trim()) return;
+Editar_tarea;
 
   const li = document.createElement("li");
   const spanTexto = document.createElement("span");
@@ -25,5 +26,10 @@ function agregarTarea() {
   li.appendChild(btnEliminar);
   lista.appendChild(li);
 
+=======
+  const li = document.createElement("li");
+  li.textContent = input.value;
+  lista.appendChild(li);
+ main;
   input.value = "";
 }
