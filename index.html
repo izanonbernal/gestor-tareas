@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestor de tareas</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 24px;
+      max-width: 900px;
+    }
+
+    h1 { margin-bottom: 8px; }
+    p  { margin-top: 0; color: #444; }
+
+    .panel {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-width: 260px;
+      flex: 1;
+    }
+
+    button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Colores iniciales (se ajustarán en la actividad) */
+    #btnAdd { background-color: #2e7d32; color: white; } /* verde */
+    #btnDel { background-color: #c62828; color: white; } /* rojo */
+    #btnEdit { background-color: #1565c0; color: white; } /* azul */
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f1f1f1;
+      color: #333;
+      justify-self: end;
+    }
+
+    .muted { color: #777; font-size: 14px; }
+    .danger { color: #b71c1c; }
+    .ok { color: #1b5e20; }
+  </style>
+</head>
+<body>
+  <h1>Gestor de tareas</h1>
+  <p class="muted">Plantilla base para la actividad de Git. Completa las funciones marcadas como <strong>TODO</strong>.</p>
+
+  <div class="panel">
+    <input id="taskInput" type="text" placeholder="Escribe una tarea (ej: 'Estudiar Git')" />
+    <button id="btnAdd" onclick="addTask()">Añadir tarea</button>
+    <button id="btnEdit" onclick="editSelected()">Editar tarea</button>
+    <button id="btnDel" onclick="deleteSelected()">Eliminar tarea</button>
+  </div>
+
+  <p class="muted">
+    Selecciona una tarea haciendo click sobre ella. La tarea seleccionada se marca como <span class="tag">Seleccionada</span>.
+  </p>
+
+  <ul id="taskList"></ul>
+
+  <p id="status" class="muted"></p>
+
+  <script>
+    // =========================
+    // Datos (NO borrar)
+    // =========================
+    let tasks = [
+      { id: 1, text: "Ejemplo: Clonar repositorio", done: false },
+      { id: 2, text: "Ejemplo: Crear rama y hacer commits", done: false }
+    ];
+
+    let selectedId = null;
+    let nextId = 3;
+
+    // =========================
+    // Utilidades (NO borrar)
+    // =========================
+    function setStatus(message, type = "muted") {
+      const el = document.getElementById("status");
+      el.className = type;
+      el.textContent = message;
+    }
+
+    function render() {
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
+
+      if (tasks.length === 0) {
+        list.innerHTML = `<li><span class="muted">No hay tareas. Añade una nueva.</span><span></span><span></span></li>`;
+        return;
+      }
+
+      tasks.forEach(t => {
+        const li = document.createElement("li");
+        li.dataset.id = t.id;
+
+        const text = document.createElement("span");
+        text.textContent = t.text;
+
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = (t.id === selectedId) ? "Seleccionada" : "";
+
+        const small = document.createElement("span");
+        small.className = "muted";
+        small.textContent = `ID: ${t.id}`;
+
+        li.appendChild(text);
+        li.appendChild(small);
+        li.appendChild(tag);
+
+        li.onclick = () => {
+          selectedId = t.id;
+          setStatus(`Tarea seleccionada: ID ${selectedId}`, "ok");
+          render();
+        };
+
+        list.appendChild(li);
+      });
+    }
+
+    function readInputTrimmed() {
+      return document.getElementById("taskInput").value.trim();
+    }
+
+    function clearInput() {
+      document.getElementById("taskInput").value = "";
+    }
+
+    // =========================
+    // TODO: Funciones a implementar por el alumnado
+    // =========================
+
+    // Parte "Añadir tarea" (rama principal)
+    
+
+    // Rama "eliminar"
+    
+    // Rama "editar"
+    function editSelected() {
+      
+      
+    }
+
+    // =========================
+    // Inicio
+    // =========================
+    render();
+    setStatus("Listo. Selecciona una tarea o añade una nueva.");
+  </script>
+</body>
+</html>
